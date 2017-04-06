@@ -14,6 +14,7 @@ import Vista.ProductoView;
 import Vista.StockView;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  *
@@ -21,9 +22,15 @@ import javax.swing.JPanel;
  */
 public class Controlador {
     Archivo archivo;
+    MeseroView meseroView;
 
-    public Controlador() {
-        archivo = new Archivo();
+    public void setArchivo(Archivo archivo) {
+        this.archivo = archivo;
+    }
+    
+
+    public void setMeseroView(MeseroView meseroView) {
+        this.meseroView = meseroView;
     }
     
     
@@ -31,8 +38,8 @@ public class Controlador {
         archivo.nuevoProducto(text,text0,text1,text2,infoTxt);
     }
 
-    public void nuevoPlato(String text, String text0) {
-        archivo.nuevoPlato(text,text0);
+    public void nuevoPlato(String text, String text0, JPanel panelBotones) {
+        archivo.nuevoPlato(text,text0,panelBotones);
     }
 
     public void setControladorToGeneralView(GeneralView generalView, Controlador controlador) {
@@ -68,9 +75,18 @@ public class Controlador {
         meseroView.setMenuView(menuView);
     }
 
-    public void generarMenuMesero(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel) {
-        archivo.generarMenuMesero(platosPanel,bebidasPanel,postresPanel);
+    public void generarMenuMesero(JTable tablaPedido, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel) {
+        archivo.generarMenuMesero(tablaPedido, platosPanel,bebidasPanel,postresPanel);
     }
+
+    public void setControladorToArchivo(Archivo archivo, Controlador controlador) {
+        archivo.setControlador(controlador);
+    }
+
+    public void setMeseroViewToControlador(MeseroView meseroView, Controlador controlador) {
+        controlador.setMeseroView(meseroView);
+    }
+
 
     
 }

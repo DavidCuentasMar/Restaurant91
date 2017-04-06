@@ -15,15 +15,19 @@ public class Restaurant91 {
         StockView stockView = new StockView();
         PlatoView platoView = new PlatoView();
         MenuView menuView = new MenuView();
+        Archivo archivo = new Archivo();
         
         ProductoView productoView = new ProductoView();
         controlador.setViewsToStockView(stockView,productoView,platoView);
         controlador.setMenuViewToMeseroView(menuView,meseroView);
+        controlador.setControladorToArchivo(archivo,controlador);
         controlador.setControladorToStockView(stockView,controlador);
-        controlador.setControladorToGeneralView(generalView,controlador); 
+        controlador.setControladorToGeneralView(generalView,controlador);
+        controlador.setArchivo(archivo);
         controlador.setControladorToMeseroView(meseroView,controlador);
         controlador.setStockViewToGeneralView(generalView,stockView);
         controlador.setMeseroViewToGeneralView(generalView,meseroView);
+        controlador.setMeseroViewToControlador(meseroView,controlador);
         generalView.setVisible(true);
     }
     

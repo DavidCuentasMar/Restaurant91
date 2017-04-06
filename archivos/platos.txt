@@ -1,2 +1,2 @@
-Arroz con Pollo,7500
-Plato Sorpresa,1000000
+Corriente de Carne,7500,Arroz/Carne/Yuca
+Corriente de Pollo,7500,Arroz/Pollo/Yuca
