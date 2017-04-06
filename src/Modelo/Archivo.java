@@ -160,7 +160,7 @@ public class Archivo {
         for (Component component1 : component3) {
             component1.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    addPedidoToTable(tablaPedido, e.getComponent().getName(),"Postre");
+                    addPedidoToTable(tablaPedido, e.getComponent().getName(),"Postre");                    
                 }
              });
         }

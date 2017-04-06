@@ -175,11 +175,15 @@ public class MeseroView extends javax.swing.JFrame {
             DefaultTableModel modelCocina = (DefaultTableModel) controlador.getTablaCocina().getModel();
             modelCocina.addRow(new Object[]{"",meseroID.getSelectedItem().toString(), mesaID.getSelectedItem().toString(), "En espera"});            
         } 
+        String productos = "";
         for (int i = 0; i < tablaPedido.getRowCount(); i++) {//Limpiar tabla
-                model.removeRow(i);
+            productos = productos+tablaPedido.getValueAt(i, 0).toString()+"/"+tablaPedido.getValueAt(i, 1).toString()+"-";
+            model.removeRow(i);
                 i -= 1;
-            }
-        
+        }
+        productos = productos.substring(0, productos.length()-1);
+
+        System.out.println(productos);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
