@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Archivo;
+import Vista.CocinaView;
 import Vista.GeneralView;
 import Vista.MenuView;
 import Vista.MeseroView;
@@ -23,7 +24,12 @@ import javax.swing.JTable;
 public class Controlador {
     Archivo archivo;
     MeseroView meseroView;
+    CocinaView cocinaView;
 
+    public void setCocinaView(CocinaView cocinaView) {
+        this.cocinaView = cocinaView;
+    }
+    
     public void setArchivo(Archivo archivo) {
         this.archivo = archivo;
     }
@@ -85,6 +91,14 @@ public class Controlador {
 
     public void setMeseroViewToControlador(MeseroView meseroView, Controlador controlador) {
         controlador.setMeseroView(meseroView);
+    }
+
+    public void setCocinaViewToGeneralView(CocinaView cocinaView, GeneralView generalView) {
+        generalView.setCocinaView(cocinaView);
+    }
+    
+    public JTable getTablaCocina(){
+        return this.cocinaView.getTablaCocina();
     }
 
 

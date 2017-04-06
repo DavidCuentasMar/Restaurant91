@@ -3,6 +3,7 @@ import Vista.GeneralView;
 import Vista.PlatoView;
 import Vista.ProductoView;
 import Controlador.Controlador;
+import Vista.CocinaView;
 import Vista.MenuView;
 import Vista.MeseroView;
 import Vista.StockView;
@@ -16,8 +17,9 @@ public class Restaurant91 {
         PlatoView platoView = new PlatoView();
         MenuView menuView = new MenuView();
         Archivo archivo = new Archivo();
-        
+        CocinaView cocinaView = new CocinaView();
         ProductoView productoView = new ProductoView();
+
         controlador.setViewsToStockView(stockView,productoView,platoView);
         controlador.setMenuViewToMeseroView(menuView,meseroView);
         controlador.setControladorToArchivo(archivo,controlador);
@@ -27,7 +29,9 @@ public class Restaurant91 {
         controlador.setControladorToMeseroView(meseroView,controlador);
         controlador.setStockViewToGeneralView(generalView,stockView);
         controlador.setMeseroViewToGeneralView(generalView,meseroView);
+        controlador.setCocinaViewToGeneralView(cocinaView,generalView);
         controlador.setMeseroViewToControlador(meseroView,controlador);
+        controlador.setCocinaView(cocinaView);
         generalView.setVisible(true);
     }
     
