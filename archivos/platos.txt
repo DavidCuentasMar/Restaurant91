@@ -1,2 +1,3 @@
 Corriente de Carne,7500,Arroz/Carne/Yuca
 Corriente de Pollo,7500,Arroz/Pollo/Yuca
+Pescado,12000,Pescado

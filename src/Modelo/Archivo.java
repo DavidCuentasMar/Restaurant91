@@ -9,6 +9,7 @@ import Controlador.Controlador;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Archivo {
     Controlador controlador;
-
+    ListaProducto productList;
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
     }
@@ -185,7 +186,9 @@ public class Archivo {
                     String token=st.nextElement().toString();
                     token=st.nextElement().toString();
                     if (name.equals(token)) {
-                        return Integer.parseInt(st.nextElement().toString());                        
+                        token=st.nextElement().toString();
+                        token=st.nextElement().toString();
+                        return Integer.parseInt(token);                        
                     }                    
                 }
             }
@@ -193,7 +196,7 @@ public class Archivo {
         } catch (IOException ex) {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        return -666;
+        return -15;
     }
 
     private int getPricePlato(String name) {
@@ -215,4 +218,114 @@ public class Archivo {
         }        
         return -666;
     }
+
+    public int getCantidad(String name) {
+        String cadena;
+        try(FileReader f = new FileReader("archivos/productos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                while(st.hasMoreElements()){
+                    String token=st.nextElement().toString();
+                    token=st.nextElement().toString();
+                    if (name.equals(token)) {
+                        token=st.nextElement().toString();
+                        return Integer.parseInt(token);                        
+                    }
+                    
+                }
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return -666;
+    }
+
+    public void archivoTemp(String name, String type, int cant, int price) {
+        try(FileWriter bw = new FileWriter("archivos/temp.txt", true)){         
+            BufferedWriter w = new BufferedWriter(bw);
+            String cadena;
+            try(FileReader f = new FileReader("archivos/productos.txt")){
+                BufferedReader b = new BufferedReader(f);            
+                while((cadena = b.readLine())!=null) {
+//                  System.out.println(cadena);
+                    StringTokenizer st = new StringTokenizer(cadena,",");
+                    String typeToken = st.nextElement().toString();
+                    String nameToken = st.nextElement().toString();
+                    String priceToken = st.nextElement().toString();
+                    String cantToken = st.nextElement().toString();                    
+                    if (type.equals(typeToken)) {                        
+                        if (nameToken.equals(name)) {
+                            w.write(typeToken+","+nameToken+","+priceToken+","+cant);                       
+                        }else{                            
+                            w.write(typeToken+","+nameToken+","+priceToken+","+cantToken);                            
+                        }
+                        w.newLine();
+                    }else{
+                        w.write(typeToken+","+nameToken+","+priceToken+","+cantToken);
+                        w.newLine();                    
+                    }
+                }
+                b.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }               
+            w.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        File fichero = new File("archivos/productos.txt");
+        fichero.delete();
+        File fichero2 = new File("archivos/temp.txt");
+        fichero2.renameTo(fichero); 
+        
+    }
+
+    public String getPlatoIngredientes(String name) {
+        String cadena;
+        try(FileReader f = new FileReader("archivos/platos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                while(st.hasMoreElements()){
+                    String token=st.nextElement().toString();
+                    if (name.equals(token)) {
+                        token=st.nextElement().toString();
+                        token=st.nextElement().toString();
+                        return token;                        
+                    }                                      
+                }
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "[PLATO NO ENCONTRADO]";
+    }
+
+    public int gerPricePlato(String name) {
+        String cadena;
+        try(FileReader f = new FileReader("archivos/platos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                while(st.hasMoreElements()){
+                    String token=st.nextElement().toString();                    
+                    if (name.equals(token)) {
+                        token=st.nextElement().toString();
+                        return Integer.parseInt(token);                        
+                    }                    
+                }
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return -15;
+    }
+
 }

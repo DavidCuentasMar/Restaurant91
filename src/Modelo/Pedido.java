@@ -3,19 +3,40 @@ package Modelo;
 import java.util.StringTokenizer;
 
 public class Pedido {
-    public String id;
-    public String productos;
-    public String mesa;
-    public String mesero;
-    public Pedido link;
-
-    public Pedido(String id, String productos, String mesa, String mesero) {
-        this.id = id;
+    public int NroPedido;
+    public String Mesa;
+    public String Camarero;
+    private Pedido link;
+    private  ListaProducto productos;
+    private int valor;
+    private int numProductos;
+    
+    
+    public Pedido(int NroPedido, String Mesa, String Camarero, ListaProducto productos, int numProductos) {
+        this.NroPedido = NroPedido;
+        this.Mesa = Mesa;
+        this.Camarero = Camarero;
         this.productos = productos;
-        this.mesa = mesa;
-        this.mesero = mesero;
-        this.link=null;
+        this.numProductos=numProductos;
+        this.valor = 0;
     }
+
+    public void setProductos(ListaProducto productos) {
+        this.productos = productos;
+    }
+    
+    public Pedido() {
+    }
+    
+    public void showPedidoList(){
+        productos.showList();
+    }
+
+    public int getNumProductos() {
+        return numProductos;
+    }
+    
+ 
 
     public Pedido getLink() {
         return link;
@@ -25,20 +46,34 @@ public class Pedido {
         this.link = link;
     }
     
+    public ListaProducto getProductos() {
+        return productos;
+    }
+    public int getNroPedido() {
+        return NroPedido;
+    }
+
+    public String getMesa() {
+        return Mesa;
+    }
+
+    public String getCamarero() {
+        return Camarero;
+    }
+
     public String getProductosTxt() {
-        String products="";
-        StringTokenizer st = new StringTokenizer(this.productos,"-");
-                while(st.hasMoreElements()){
-                    String tokenst=st.nextElement().toString();
-                    StringTokenizer pt = new StringTokenizer(tokenst,"/");
-                    String tokenpt=pt.nextElement().toString();
-                    tokenpt=pt.nextElement().toString();
-                    products=products+tokenpt+"\n"; 
-                }
-        
-        return products;
+        return productos.getListTxt();
+    }
+
+    public void addPrice(String Monto){
+        this.valor = this.valor+Integer.parseInt(Monto);
+    }
+
+    public int getValor() {
+        return valor;
     }
     
-    
-    
+    public void setPrice(int Monto){
+        this.valor = this.valor-Monto;
+    }
 }

@@ -7,6 +7,7 @@ package Controlador;
 
 import Modelo.Archivo;
 import Modelo.Cocina;
+import Modelo.JefeCocina;
 import Modelo.Pedido;
 import Vista.CocinaView;
 import Vista.GeneralView;
@@ -28,19 +29,25 @@ public class Controlador {
     MeseroView meseroView;
     CocinaView cocinaView;
     Cocina cocinaClass;
+    JefeCocina jefeCocinaClass;
 
+    public void setJefeCocinaClass(JefeCocina jefeCocinaClass) {
+        this.jefeCocinaClass = jefeCocinaClass;
+    }
+    
+    public Controlador() {
+        archivo=new Archivo();
+    }
+    
+    
+    
     public void setCocinaClass(Cocina cocinaClass) {
         this.cocinaClass = cocinaClass;
     }
     
     public void setCocinaView(CocinaView cocinaView) {
         this.cocinaView = cocinaView;
-    }
-    
-    public void setArchivo(Archivo archivo) {
-        this.archivo = archivo;
-    }
-    
+    }   
 
     public void setMeseroView(MeseroView meseroView) {
         this.meseroView = meseroView;
@@ -48,7 +55,7 @@ public class Controlador {
     
     
     public void nuevoProducto(String text, String text0, String text1, String text2, JLabel infoTxt) {
-        archivo.nuevoProducto(text,text0,text1,text2,infoTxt);
+        this.archivo.nuevoProducto(text,text0,text1,text2,infoTxt);
     }
 
     public void nuevoPlato(String text, String text0, JPanel panelBotones) {
@@ -108,8 +115,8 @@ public class Controlador {
         return this.cocinaView.getTablaCocina();
     }
 
-    public void addPedidoToCocina(String id, String productos, String meseroId, String mesaId) {
-        this.cocinaClass.agregarPedido(id,productos,meseroId,mesaId);
+    public void addPedidoToCocina(Pedido p) {
+        this.cocinaClass.agregarPedido(p);
     }
 
     public void setControladorToCocinaView(Controlador controlador, CocinaView cocinaView) {
@@ -128,6 +135,31 @@ public class Controlador {
     public Pedido findPedido(String id) {
         return cocinaClass.findPedido(id);
     }
+
+    public Pedido actualizarStock(String NoPedido) {
+        return jefeCocinaClass.actualizarStock(NoPedido,this.cocinaClass);
+    }
+
+    public int getPrice(String name) {
+        return archivo.getCantidad(name);
+    }
+
+    public int getCantidad(String name) {
+        return archivo.getPrice(name);
+    }
+
+    public void archivoTemp(String name, String type, int i, int price) {
+        archivo.archivoTemp(name,type,i,price);
+    }
+
+    public String getPlatoIngredientes(String name) {
+        return archivo.getPlatoIngredientes(name);
+    }
+
+    public int getPricePlato(String name) {
+        return archivo.gerPricePlato(name);
+    }
+
 
 
 

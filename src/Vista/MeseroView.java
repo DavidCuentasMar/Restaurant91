@@ -6,6 +6,9 @@
 package Vista;
 
 import Controlador.Controlador;
+import Modelo.ListaProducto;
+import Modelo.Pedido;
+import Modelo.Producto;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -170,26 +173,31 @@ public class MeseroView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tablaPedido.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) tablaPedido.getModel();
+        DefaultTableModel modelCocina = (DefaultTableModel) controlador.getTablaCocina().getModel();
+        int numProductos=0;
         if (model.getRowCount()!=0) {
-            DefaultTableModel modelCocina = (DefaultTableModel) controlador.getTablaCocina().getModel();
-            modelCocina.addRow(new Object[]{""+numPedidos, mesaID.getSelectedItem().toString(), "En espera"});            
-        
-            String productos = "";
+            ListaProducto lp = new ListaProducto();
+            String nombreProducto, tipoProducto;
+            for (int i = 0; i < tablaPedido.getRowCount(); i++) {
+                tipoProducto = tablaPedido.getValueAt(i, 0).toString();
+                nombreProducto = tablaPedido.getValueAt(i, 1).toString();
+                Producto p = new Producto(nombreProducto, tipoProducto);
+                lp.agregarProducto(p); //Creo una lista con todos los productos que va a 
+                // tener el pedido
+                numProductos++;
+            }                        
+            Pedido p = new Pedido(numPedidos, mesaID.getSelectedItem().toString(), meseroID.getSelectedItem().toString(), lp,numProductos);
+            controlador.addPedidoToCocina(p);            
+            modelCocina.addRow(new Object[]{numPedidos, mesaID.getSelectedItem().toString(), "En espera"});                                    
             for (int i = 0; i < tablaPedido.getRowCount(); i++) {//Limpiar tabla
-                productos = productos+tablaPedido.getValueAt(i, 0).toString()+"/"+tablaPedido.getValueAt(i, 1).toString()+"-";
                 model.removeRow(i);
                     i -= 1;
             }
-            productos = productos.substring(0, productos.length()-1);
-            controlador.addPedidoToCocina(numPedidos+"",productos,meseroID.getSelectedItem().toString(),mesaID.getSelectedItem().toString());
-            System.out.println(productos);
-            numPedidos=numPedidos+1;      
-        
-        
-        } 
-        
-        
+            numPedidos++;
+        }else{
+            System.out.println("nada para agregar");
+        }                 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
