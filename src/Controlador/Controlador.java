@@ -6,6 +6,8 @@
 package Controlador;
 
 import Modelo.Archivo;
+import Modelo.Cocina;
+import Modelo.Pedido;
 import Vista.CocinaView;
 import Vista.GeneralView;
 import Vista.MenuView;
@@ -25,7 +27,12 @@ public class Controlador {
     Archivo archivo;
     MeseroView meseroView;
     CocinaView cocinaView;
+    Cocina cocinaClass;
 
+    public void setCocinaClass(Cocina cocinaClass) {
+        this.cocinaClass = cocinaClass;
+    }
+    
     public void setCocinaView(CocinaView cocinaView) {
         this.cocinaView = cocinaView;
     }
@@ -100,6 +107,29 @@ public class Controlador {
     public JTable getTablaCocina(){
         return this.cocinaView.getTablaCocina();
     }
+
+    public void addPedidoToCocina(String id, String productos, String meseroId, String mesaId) {
+        this.cocinaClass.agregarPedido(id,productos,meseroId,mesaId);
+    }
+
+    public void setControladorToCocinaView(Controlador controlador, CocinaView cocinaView) {
+        cocinaView.setControlador(controlador);
+    }
+
+
+    public void verPedidosCocina(Cocina cocinaClass) {
+        cocinaClass.verPedidosCocina();
+    }
+
+    public void setCocinaClassToCocinaView(Cocina cocinaClass, CocinaView cocinaView) {
+        cocinaView.setCocinaClass(cocinaClass);
+    }
+
+    public Pedido findPedido(String id) {
+        return cocinaClass.findPedido(id);
+    }
+
+
 
 
     

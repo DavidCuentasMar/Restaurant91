@@ -1,11 +1,22 @@
 package Modelo;
 public class Cocina {
-   int numPedidos=0;
    ListaPedido pedidos;
+
+    public Cocina( ) {
+        pedidos = new ListaPedido();
+    }
    
-   public void agregarPedido(String productos){
-       Pedido p = new Pedido(this.numPedidos+"",productos);
-       pedidos.agregarPedido(p);
-       this.numPedidos++;
+   
+   public void agregarPedido(String id, String productos,String meseroId, String mesaId){
+       Pedido p = new Pedido(id,productos,meseroId,mesaId);
+       this.pedidos.agregarPedido(p);
+
    }
+   public void verPedidosCocina(){
+       pedidos.showList();
+   }
+
+    public Pedido findPedido(String id) {
+        return pedidos.findPedido(id);
+    }
 }

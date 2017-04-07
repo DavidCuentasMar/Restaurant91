@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class MeseroView extends javax.swing.JFrame {
     Controlador controlador;
     MenuView menuView;
-    
+    int numPedidos=1;
     public void setMenuView(MenuView menuView) {
         this.menuView = menuView;
     }
@@ -173,17 +173,23 @@ public class MeseroView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tablaPedido.getModel(); 
         if (model.getRowCount()!=0) {
             DefaultTableModel modelCocina = (DefaultTableModel) controlador.getTablaCocina().getModel();
-            modelCocina.addRow(new Object[]{"",meseroID.getSelectedItem().toString(), mesaID.getSelectedItem().toString(), "En espera"});            
+            modelCocina.addRow(new Object[]{""+numPedidos, mesaID.getSelectedItem().toString(), "En espera"});            
+        
+            String productos = "";
+            for (int i = 0; i < tablaPedido.getRowCount(); i++) {//Limpiar tabla
+                productos = productos+tablaPedido.getValueAt(i, 0).toString()+"/"+tablaPedido.getValueAt(i, 1).toString()+"-";
+                model.removeRow(i);
+                    i -= 1;
+            }
+            productos = productos.substring(0, productos.length()-1);
+            controlador.addPedidoToCocina(numPedidos+"",productos,meseroID.getSelectedItem().toString(),mesaID.getSelectedItem().toString());
+            System.out.println(productos);
+            numPedidos=numPedidos+1;      
+        
+        
         } 
-        String productos = "";
-        for (int i = 0; i < tablaPedido.getRowCount(); i++) {//Limpiar tabla
-            productos = productos+tablaPedido.getValueAt(i, 0).toString()+"/"+tablaPedido.getValueAt(i, 1).toString()+"-";
-            model.removeRow(i);
-                i -= 1;
-        }
-        productos = productos.substring(0, productos.length()-1);
-
-        System.out.println(productos);
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

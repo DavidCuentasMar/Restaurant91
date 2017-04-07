@@ -19,13 +19,16 @@ public class Restaurant91 {
         Archivo archivo = new Archivo();
         CocinaView cocinaView = new CocinaView();
         ProductoView productoView = new ProductoView();
-
+        Cocina cocinaClass = new Cocina();
+        controlador.setCocinaClassToCocinaView(cocinaClass,cocinaView);
         controlador.setViewsToStockView(stockView,productoView,platoView);
         controlador.setMenuViewToMeseroView(menuView,meseroView);
         controlador.setControladorToArchivo(archivo,controlador);
         controlador.setControladorToStockView(stockView,controlador);
         controlador.setControladorToGeneralView(generalView,controlador);
         controlador.setArchivo(archivo);
+        controlador.setCocinaClass(cocinaClass);
+        controlador.setControladorToCocinaView(controlador,cocinaView);
         controlador.setControladorToMeseroView(meseroView,controlador);
         controlador.setStockViewToGeneralView(generalView,stockView);
         controlador.setMeseroViewToGeneralView(generalView,meseroView);
