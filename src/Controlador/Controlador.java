@@ -147,6 +147,9 @@ public class Controlador {
     public int getCantidad(String name) {
         return archivo.getPrice(name);
     }
+    public int comprobarExistencia(String name, String type) {
+        return archivo.comprobarExistencia(name,type);
+    }
 
     public void archivoTemp(String name, String type, int i, int price) {
         archivo.archivoTemp(name,type,i,price);

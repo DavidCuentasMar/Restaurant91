@@ -59,7 +59,7 @@ public class ProductoView extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo");
 
-        tipoTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingrediente", "Bebida", "Postre" }));
+        tipoTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Ingrediente", "Bebida", "Postre" }));
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +125,17 @@ public class ProductoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlador.nuevoProducto(String.valueOf(tipoTxt.getSelectedItem()),nameTxt.getText(),precioTxt.getText(),cantTxt.getText(),infoTxt);
+        String type = String.valueOf(tipoTxt.getSelectedItem());
+        String name = nameTxt.getText();
+        String cantidad = cantTxt.getText();
+        if(controlador.comprobarExistencia(name,type)!=-15){
+            int cant = controlador.getCantidad(name);
+            cant = Integer.parseInt(cantidad)+cant;
+            controlador.archivoTemp(name, type, cant, Integer.parseInt(precioTxt.getText()));
+        
+        }else{
+        controlador.nuevoProducto(type,name,precioTxt.getText(),cantidad,infoTxt);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
