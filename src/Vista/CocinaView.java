@@ -158,14 +158,15 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
             int row = tablaCocina.getSelectedRow();
             String NoPedido = tablaCocina.getValueAt(row, 0).toString();
             Pedido p = controlador.actualizarStock(tablaCocina.getValueAt(row, 0).toString());
-//            continuar = true;
-//            btnCocinar.setEnabled(false);
-//            resetSeg();
-//            i = null;            
-//            int timeXproductos = p.getNumProductos();
-//            System.out.println(timeXproductos);
-//            i = new Time(this,timeXproductos);
-//            i.start();
+            continuar = true;
+            btnCocinar.setEnabled(false);
+            resetSeg();
+            i = null;            
+            int timeXproductos = p.getLista().getTamano();
+            timeXproductos = timeXproductos * 3;            
+            System.out.println(timeXproductos);
+            i = new Time(this,timeXproductos);
+            i.start();
         }
     }//GEN-LAST:event_btnCocinarActionPerformed
 

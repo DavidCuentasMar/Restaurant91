@@ -85,7 +85,7 @@ public class JefeCocina {
         }        
         p.setProductos(productList);
         
-        return null;        
+        return p;        
         
     
     }

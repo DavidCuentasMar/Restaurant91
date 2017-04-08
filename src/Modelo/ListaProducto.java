@@ -8,6 +8,11 @@ public class ListaProducto {
     public ListaProducto() {
         this.ptr = null;
     }
+
+    public int getTamano() {
+        return tamano;
+    }
+    
     public void eliminarProducto(String name){
         if (name.equals(this.ptr.getName())) {
             Producto q = this.ptr;

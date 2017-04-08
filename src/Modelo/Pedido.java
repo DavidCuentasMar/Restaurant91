@@ -60,7 +60,9 @@ public class Pedido {
     public String getCamarero() {
         return Camarero;
     }
-
+    public ListaProducto getLista(){
+        return this.productos;
+    }
     public String getProductosTxt() {
         return productos.getListTxt();
     }
