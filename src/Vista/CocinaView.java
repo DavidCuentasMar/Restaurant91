@@ -186,6 +186,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
             String productosTxt = p.getProductosTxt();
                 JOptionPane.showMessageDialog(this,
                     "No.Pedido: " + tablaCocina.getValueAt(row, 0).toString()
+                    +"\nNo.Mesero:" + p.getCamarero()
                     + "\nNo.Mesa: " + tablaCocina.getValueAt(row, 1).toString()
                     + "\n----------\n" + productosTxt);            
         }     
@@ -266,13 +267,12 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
     public synchronized void parar() {
         btnCocinar.setEnabled(true);
         continuar = false;
-//        int row = TableCocina.getSelectedRow();
-//        TableCocina.setValueAt("Listo", row, 2);
-//        int row = tablaCocina.getSelectedRow();
-//        DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();            
+//        
+//        DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();  
+//        int row = tablaCocina.getSelectedRow();                  
 //        String NoPedido = tablaCocina.getValueAt(row, 0).toString();       
 //        controlador.eliminarPedidoCocina(NoPedido);
-//        model.removeRow(0);
+//        model.removeRow(row);
         
         
     }

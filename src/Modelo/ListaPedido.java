@@ -74,9 +74,10 @@ public class ListaPedido {
      public void pedidoToTableMesasView(JTable tablaMesas, String mesaID) {
         Pedido p = this.ptr; 
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
-         for (int i = 0; i < model.getRowCount(); i++) {
-             model.removeRow(i);
-         }
+        for (int i = 0; i < model.getRowCount(); i++) {
+                model.removeRow(i);
+                i=-1;
+            }
         while(p!=null){
             if (p.getMesa().equals(mesaID)) {
                 model.addRow(new Object[]{p.NroPedido, p.Camarero});                                          

@@ -134,6 +134,7 @@ public class MesasView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
             for (int i = 0; i < model.getRowCount(); i++) {
                 model.removeRow(i);
+                i=-1;
             }
         Mesa mesa = controlador.findMesa(mesaID.getSelectedItem().toString());
         System.out.println("!!!!");
