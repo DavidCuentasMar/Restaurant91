@@ -109,13 +109,15 @@ public class Archivo {
                     String token=st.nextElement().toString();
                     if (token.equals("Bebida")) {
                         token=st.nextElement().toString();
-                        JButton JRB = new JButton(token);        
+                        String a = st.nextElement().toString();
+                        JButton JRB = new JButton(token+" $"+a);         
                         bebidasPanel.add(JRB);
                         JRB.setName(token);
                     }
                     if (token.equals("Postre")) {
                         token=st.nextElement().toString();
-                        JButton JRB = new JButton(token);        
+                        String a = st.nextElement().toString();
+                        JButton JRB = new JButton(token+" $"+a);         
                         postresPanel.add(JRB);
                         JRB.setName(token);
                     }
@@ -132,7 +134,9 @@ public class Archivo {
             while((cadena = b.readLine())!=null) {
                 StringTokenizer st = new StringTokenizer(cadena,",");
                     String token=st.nextElement().toString();                    
-                        JButton JRB = new JButton(token);        
+                        String a=st.nextElement().toString();
+                        a=token+" $"+a;
+                        JButton JRB = new JButton(a);          
                         platosPanel.add(JRB);
                         JRB.setName(token);                
                 platosPanel.updateUI();
@@ -201,7 +205,7 @@ public class Archivo {
         return -15;
     }
     
-    public int getPrice(String name) {
+    public int getCantidad(String name) {
         String cadena;
         try(FileReader f = new FileReader("archivos/productos.txt")){
             BufferedReader b = new BufferedReader(f);            
@@ -244,7 +248,7 @@ public class Archivo {
         return -666;
     }
 
-    public int getCantidad(String name) {
+    public int getPrice(String name) {
         String cadena;
         try(FileReader f = new FileReader("archivos/productos.txt")){
             BufferedReader b = new BufferedReader(f);            

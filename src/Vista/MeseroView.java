@@ -7,6 +7,8 @@ package Vista;
 
 import Controlador.Controlador;
 import Modelo.ListaProducto;
+import Modelo.ListaMesa;
+import Modelo.ListaMesero;
 import Modelo.Pedido;
 import Modelo.Producto;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MeseroView extends javax.swing.JFrame {
     Controlador controlador;
+    ListaMesa mesas;
+    ListaMesero meseros;
     MenuView menuView;
     int numPedidos=1;
     public void setMenuView(MenuView menuView) {
@@ -31,6 +35,8 @@ public class MeseroView extends javax.swing.JFrame {
      */
     public MeseroView() {
         initComponents();
+        mesas = new ListaMesa();
+        meseros = new ListaMesero();
     }
 
     /**
@@ -174,30 +180,35 @@ public class MeseroView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaPedido.getModel();
-        DefaultTableModel modelCocina = (DefaultTableModel) controlador.getTablaCocina().getModel();
+        DefaultTableModel modelCocina = (DefaultTableModel) controlador.getTablaCocina().getModel();        
         int numProductos=0;
-        if (model.getRowCount()!=0) {
-            ListaProducto lp = new ListaProducto();
-            String nombreProducto, tipoProducto;
-            for (int i = 0; i < tablaPedido.getRowCount(); i++) {
-                tipoProducto = tablaPedido.getValueAt(i, 0).toString();
-                nombreProducto = tablaPedido.getValueAt(i, 1).toString();
-                Producto p = new Producto(nombreProducto, tipoProducto);
-                lp.agregarProducto(p); //Creo una lista con todos los productos que va a 
-                // tener el pedido
-                numProductos++;
-            }                        
-            Pedido p = new Pedido(numPedidos, mesaID.getSelectedItem().toString(), meseroID.getSelectedItem().toString(), lp,numProductos);
-            controlador.addPedidoToCocina(p);            
-            modelCocina.addRow(new Object[]{numPedidos, mesaID.getSelectedItem().toString(), "En espera"});                                    
-            for (int i = 0; i < tablaPedido.getRowCount(); i++) {//Limpiar tabla
-                model.removeRow(i);
-                    i -= 1;
-            }
-            numPedidos++;
+        if (model.getRowCount()!=0) {      
+            if (controlador.addMesaToMesero(mesaID.getSelectedItem().toString(),meseroID.getSelectedItem().toString())==true) {
+                ListaProducto lp = new ListaProducto();
+                String nombreProducto, tipoProducto;
+                for (int i = 0; i < tablaPedido.getRowCount(); i++) {
+                    tipoProducto = tablaPedido.getValueAt(i, 0).toString();                    
+                    nombreProducto = tablaPedido.getValueAt(i, 1).toString();
+                    Producto p = new Producto(nombreProducto, tipoProducto);
+                    lp.agregarProducto(p); //Creo una lista con todos los productos que va a 
+                    // tener el pedido
+                    numProductos++;
+                }                        
+                Pedido p = new Pedido(numPedidos, mesaID.getSelectedItem().toString(), meseroID.getSelectedItem().toString(), lp,numProductos);
+                controlador.addPedidoToCocina(p);
+                modelCocina.addRow(new Object[]{numPedidos, mesaID.getSelectedItem().toString(), "En espera"});                                    
+                for (int i = 0; i < tablaPedido.getRowCount(); i++) {//Limpiar tabla
+                    model.removeRow(i);
+                        i -= 1;
+                }
+                numPedidos++;                                             
+            }else{
+                System.out.println("Pedido No Realizado");
+            }                                                                                    
         }else{
             System.out.println("nada para agregar");
         }                 
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

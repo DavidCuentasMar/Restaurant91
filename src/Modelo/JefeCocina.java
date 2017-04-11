@@ -21,7 +21,8 @@ public class JefeCocina {
     
     
     public Pedido actualizarStock(String NoPedido, Cocina cocinaClass) {
-        Pedido p = controlador.findPedido(NoPedido); //Buscamos el pedido        
+        System.out.println("NumeroPedido: " + NoPedido);
+        Pedido p = cocinaClass.findPedido(NoPedido); //Buscamos el pedido        
         productList=p.getProductos(); // Tomamos la lista de productos pedidos
         Producto q = productList.getPtr();
         Producto eliminar=q;

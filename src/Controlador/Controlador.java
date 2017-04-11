@@ -8,14 +8,19 @@ package Controlador;
 import Modelo.Archivo;
 import Modelo.Cocina;
 import Modelo.JefeCocina;
+import Modelo.Mesa;
+import Modelo.Mesero;
 import Modelo.Pedido;
+import Modelo.Restaurant91;
 import Vista.CocinaView;
 import Vista.GeneralView;
 import Vista.MenuView;
+import Vista.MesasView;
 import Vista.MeseroView;
 import Vista.PlatoView;
 import Vista.ProductoView;
 import Vista.StockView;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -30,9 +35,13 @@ public class Controlador {
     CocinaView cocinaView;
     Cocina cocinaClass;
     JefeCocina jefeCocinaClass;
-
+    Restaurant91 restaurant;
     public void setJefeCocinaClass(JefeCocina jefeCocinaClass) {
         this.jefeCocinaClass = jefeCocinaClass;
+    }
+
+    public void setRestaurant(Restaurant91 restaurant) {
+        this.restaurant = restaurant;
     }
     
     public Controlador() {
@@ -141,11 +150,11 @@ public class Controlador {
     }
 
     public int getPrice(String name) {
-        return archivo.getCantidad(name);
+        return archivo.getPrice(name);
     }
 
     public int getCantidad(String name) {
-        return archivo.getPrice(name);
+        return archivo.getCantidad(name);
     }
     public int comprobarExistencia(String name, String type) {
         return archivo.comprobarExistencia(name,type);
@@ -162,6 +171,37 @@ public class Controlador {
     public int getPricePlato(String name) {
         return archivo.gerPricePlato(name);
     }
+
+    public boolean addMesaToMesero(String mesaid, String meseroid) {
+        return restaurant.addMesaToMesero(mesaid, meseroid);
+    }
+
+    public Mesa findMesa(String id){
+        return restaurant.findMesa(id);
+    }
+
+    public Mesero findMesero(String camarero) {
+        return restaurant.findMesero(camarero);
+    }
+
+    public void actualizarTablaMesasView(JTable tablaMesas, Mesa mesa, String mesaID) {
+        mesa.getPedidos().pedidoToTableMesasView(tablaMesas,mesaID);
+    }
+
+    public void setMesasViewToGeneralView(MesasView mesasView, GeneralView generalView) {
+        generalView.setMesasView(mesasView);
+    }
+
+    public void eliminarPedidoCocina(String NoPedido) {
+        cocinaClass.eliminarPedidoCocina(NoPedido);
+    }
+
+    public void addPedidoToMesa(Pedido pd) {
+        restaurant.addPedidoToMesa(pd);
+    }
+
+ 
+
 
 
 

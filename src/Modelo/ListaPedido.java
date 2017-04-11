@@ -1,4 +1,9 @@
 package Modelo;
+
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class ListaPedido {
     Pedido ptr=null;
     Pedido ultimo=null;
@@ -12,6 +17,20 @@ public class ListaPedido {
             while(q.getLink() != null){
                 q = q.getLink();
             }
+            q.setLink(p);
+        }
+        tamano=tamano+1;
+    }
+    
+        public void agregarPedido(Pedido p, int a){
+        if (ptr == null) {
+            this.ptr = p;
+        } else {
+            Pedido q = this.ptr;
+            while(q.getLink() != null){
+                q = q.getLink();
+            }
+            p.setLink(null);
             q.setLink(p);
         }
         tamano=tamano+1;
@@ -43,14 +62,31 @@ public class ListaPedido {
         }
     }  
 
-    Pedido findPedido(String id) {
+    public Pedido findPedido(String id) {
         Pedido q = this.ptr;
         while(q.getNroPedido()!=Integer.parseInt(id)){
+
             q=q.getLink();
         }
         return q;
     }
+    
+     public void pedidoToTableMesasView(JTable tablaMesas, String mesaID) {
+        Pedido p = this.ptr; 
+        DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
+         for (int i = 0; i < model.getRowCount(); i++) {
+             model.removeRow(i);
+         }
+        while(p!=null){
+            if (p.getMesa().equals(mesaID)) {
+                model.addRow(new Object[]{p.NroPedido, p.Camarero});                                          
+            }         
+            p=p.getLink();
+        }  
+    
+    }
 
+ 
     
     
 

@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.StringTokenizer;
-
 public class Pedido {
     public int NroPedido;
     public String Mesa;

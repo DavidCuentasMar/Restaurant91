@@ -16,6 +16,11 @@ public class GeneralView extends javax.swing.JFrame {
     MeseroView meseroView;
     StockView stockView;
     CocinaView cocinaView;
+    MesasView mesasView;
+
+    public void setMesasView(MesasView mesasView) {
+        this.mesasView = mesasView;
+    }
 
     public void setCocinaView(CocinaView cocinaView) {
         this.cocinaView = cocinaView;
@@ -75,6 +80,11 @@ public class GeneralView extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Mesas");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,6 +131,10 @@ public class GeneralView extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         this.cocinaView.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        this.mesasView.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments

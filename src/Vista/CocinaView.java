@@ -8,6 +8,8 @@ package Vista;
 import Modelo.Time;
 import Controlador.Controlador;
 import Modelo.Cocina;
+import Modelo.Mesa;
+import Modelo.Mesero;
 import Modelo.Pedido;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -115,28 +117,29 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCocinar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(TextSeg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(TextSeg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCocinar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCocinar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TextSeg, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -158,6 +161,9 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
             int row = tablaCocina.getSelectedRow();
             String NoPedido = tablaCocina.getValueAt(row, 0).toString();
             Pedido p = controlador.actualizarStock(tablaCocina.getValueAt(row, 0).toString());
+            controlador.findPedido(NoPedido).setProductos(p.getProductos());            
+            Pedido pd = new Pedido(p.NroPedido,p.Mesa,p.Camarero,p.getProductos(),p.getProductos().getTamano());
+            controlador.addPedidoToMesa(pd);
             continuar = true;
             btnCocinar.setEnabled(false);
             resetSeg();
@@ -165,6 +171,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
             int timeXproductos = p.getLista().getTamano();
             timeXproductos = timeXproductos * 3;            
             System.out.println(timeXproductos);
+//            controlador.verPedidosCocina(cocinaClass);
             i = new Time(this,timeXproductos);
             i.start();
         }
@@ -261,8 +268,11 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
         continuar = false;
 //        int row = TableCocina.getSelectedRow();
 //        TableCocina.setValueAt("Listo", row, 2);
-       DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();            
-        model.removeRow(0);
+//        int row = tablaCocina.getSelectedRow();
+//        DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();            
+//        String NoPedido = tablaCocina.getValueAt(row, 0).toString();       
+//        controlador.eliminarPedidoCocina(NoPedido);
+//        model.removeRow(0);
         
         
     }

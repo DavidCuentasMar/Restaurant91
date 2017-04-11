@@ -1,8 +1,12 @@
 package Modelo;
 public class Cocina {
-   ListaPedido pedidos;
+    private ListaPedido pedidos;
     public Cocina( ) {
         pedidos = new ListaPedido();
+    }
+
+    public ListaPedido getPedidos() {
+        return pedidos;
     }
    
    
@@ -15,6 +19,11 @@ public class Cocina {
    }
 
     public Pedido findPedido(String id) {
-        return pedidos.findPedido(id);
+        return this.getPedidos().findPedido(id);
+    }
+
+    public void eliminarPedidoCocina(String NoPedido) {
+        Pedido p = findPedido(NoPedido);
+        this.getPedidos().eliminarPedido(p);
     }
 }
