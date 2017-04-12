@@ -266,13 +266,12 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
 
     public synchronized void parar() {
         btnCocinar.setEnabled(true);
-        continuar = false;
-//        
-//        DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();  
-//        int row = tablaCocina.getSelectedRow();                  
-//        String NoPedido = tablaCocina.getValueAt(row, 0).toString();       
-//        controlador.eliminarPedidoCocina(NoPedido);
-//        model.removeRow(row);
+        continuar = false;        
+        DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();  
+        int row = tablaCocina.getSelectedRow();                  
+        String NoPedido = tablaCocina.getValueAt(row, 0).toString();       
+        controlador.eliminarPedidoCocina(NoPedido);
+        model.removeRow(row);
         
         
     }
