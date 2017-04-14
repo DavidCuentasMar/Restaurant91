@@ -86,7 +86,9 @@ public class JefeCocina {
             }
         }        
         p.setProductos(productList);
-        
+        if (productList.getPtr()==null) {
+            return null;
+        }
         return p;        
         
     

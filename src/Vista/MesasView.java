@@ -6,7 +6,9 @@
 package Vista;
 
 import Controlador.Controlador;
+import Modelo.ListaPedido;
 import Modelo.Mesa;
+import Modelo.Mesero;
 import Modelo.Pedido;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -203,11 +205,25 @@ public class MesasView extends javax.swing.JFrame {
     private void Btn_FacturaMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_FacturaMesaActionPerformed
         String ID = mesaID.getSelectedItem().toString();
         String Factura = "";
+        Mesa mesa =  controlador.findMesa(ID);
+        Mesero mesero = controlador.findMesero(tablaMesas.getValueAt(0, 1).toString());
         for (int i = 0; i < tablaMesas.getRowCount(); i++) {
             int NroPedido = Integer.parseInt(tablaMesas.getValueAt(i, 0).toString());
             Factura = Factura + controlador.getValorPedido(NroPedido, Factura, ID) + "\n";
+            mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido+""));               
         }
+        mesa.setMesero(null);
+        mesero.getMesas().showList();
+        mesero.getMesas().eliminarMesa(mesa);
+        System.out.println(mesa.getMesero());
         System.out.println(Factura);
+        DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            
+            model.removeRow(i);
+            i=-1;
+        }
+        
     }//GEN-LAST:event_Btn_FacturaMesaActionPerformed
 
     /**

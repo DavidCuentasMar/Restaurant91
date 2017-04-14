@@ -162,20 +162,30 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
             int row = 0;
             String NoPedido = tablaCocina.getValueAt(row, 0).toString();
             Pedido p = controlador.actualizarStock(tablaCocina.getValueAt(row, 0).toString());
-            controlador.findPedido(NoPedido).setProductos(p.getProductos());            
-            Pedido pd = new Pedido(p.NroPedido,p.Mesa,p.Camarero,p.getProductos(),p.getProductos().getTamano());
-            pd.addPrice(""+p.getValor());
-            controlador.addPedidoToMesa(pd);
-            continuar = true;
-            btnCocinar.setEnabled(false);
-            resetSeg();
-            i = null;            
-            int timeXproductos = p.getLista().getTamano();
-            timeXproductos = timeXproductos * 3;            
-            System.out.println(timeXproductos);
-//            controlador.verPedidosCocina(cocinaClass);
-            i = new Time(this,timeXproductos);
-            i.start();
+            System.out.println(p);
+            if (p!=null) {
+                controlador.findPedido(NoPedido).setProductos(p.getProductos());            
+                Pedido pd = new Pedido(p.NroPedido,p.Mesa,p.Camarero,p.getProductos(),p.getProductos().getTamano());
+                pd.addPrice(""+p.getValor());
+                controlador.addPedidoToMesa(pd);
+                continuar = true;
+                btnCocinar.setEnabled(false);
+                resetSeg();
+                i = null;            
+                int timeXproductos = p.getLista().getTamano();
+                timeXproductos = timeXproductos * 3;            
+                System.out.println(timeXproductos);
+    //            controlador.verPedidosCocina(cocinaClass);
+                i = new Time(this,timeXproductos);
+                i.start();
+            }else{
+                DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();  
+                System.out.println("Pedido NO REALIZADO");    
+                controlador.eliminarPedidoCocina(NoPedido);
+                model.removeRow(row);
+                
+            }
+            
         }
     }//GEN-LAST:event_btnCocinarActionPerformed
 

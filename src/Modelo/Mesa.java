@@ -12,6 +12,10 @@ public class Mesa {
         this.link = null;
     }
 
+    public void setPedidos(ListaPedido pedidos) {
+        this.pedidos = pedidos;
+    }
+    
     public Mesa getLink() {
         return link;
     }

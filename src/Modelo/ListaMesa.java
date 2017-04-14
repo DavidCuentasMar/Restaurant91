@@ -78,14 +78,15 @@ public class ListaMesa {
     }
 
     public void eliminarMesa(Mesa p) {
-        if (p == this.ptr) {
+        if (p.getId().equals(this.ptr.getId())) {
             Mesa q = this.ptr;
             this.ptr = q.getLink();
             q.setLink(q);
+            System.out.println("gg");
         } else {
             Mesa q = this.ptr;
             Mesa ant = q;
-            while (q != p) {
+            while (!q.getId().equals(p.getId())) {
                 ant = q;
                 q = q.getLink();
             }
