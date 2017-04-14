@@ -200,7 +200,15 @@ public class Controlador {
         restaurant.addPedidoToMesa(pd);
     }
 
- 
+    public String getFactura(int NroPedido,String Factura,String ID){
+        Factura = restaurant.getFactura(NroPedido, Factura,ID);
+        return Factura;
+    }
+    
+    public String getValorPedido(int NroPedido,String Factura,String ID){
+        Factura = restaurant.getValorPedido(NroPedido, Factura, ID);
+        return Factura;
+    }
 
 
 
