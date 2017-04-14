@@ -1,6 +1,6 @@
 package Modelo;
 
-import javax.swing.JComboBox;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +20,10 @@ public class ListaPedido {
             q.setLink(p);
         }
         tamano=tamano+1;
+    }
+
+    public Pedido getPtr() {
+        return ptr;
     }
     
         public void agregarPedido(Pedido p, int a){
@@ -83,8 +87,7 @@ public class ListaPedido {
                 model.addRow(new Object[]{p.NroPedido, p.Camarero});                                          
             }         
             p=p.getLink();
-        }  
-    
+        }
     }
 
  

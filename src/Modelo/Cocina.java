@@ -7,6 +7,7 @@ public class Cocina {
 
     public ListaPedido getPedidos() {
         return pedidos;
+        
     }
    
    
@@ -26,4 +27,5 @@ public class Cocina {
         Pedido p = findPedido(NoPedido);
         this.getPedidos().eliminarPedido(p);
     }
+    
 }
