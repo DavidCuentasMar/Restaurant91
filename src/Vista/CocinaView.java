@@ -158,11 +158,13 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
 
     private void btnCocinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocinarActionPerformed
         if (tablaCocina.getSelectedRow()!=-1) {
-            int row = tablaCocina.getSelectedRow();
+//            int row = tablaCocina.getSelectedRow();
+            int row = 0;
             String NoPedido = tablaCocina.getValueAt(row, 0).toString();
             Pedido p = controlador.actualizarStock(tablaCocina.getValueAt(row, 0).toString());
             controlador.findPedido(NoPedido).setProductos(p.getProductos());            
             Pedido pd = new Pedido(p.NroPedido,p.Mesa,p.Camarero,p.getProductos(),p.getProductos().getTamano());
+            pd.addPrice(""+p.getValor());
             controlador.addPedidoToMesa(pd);
             continuar = true;
             btnCocinar.setEnabled(false);
@@ -268,7 +270,8 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
         btnCocinar.setEnabled(true);
         continuar = false;        
         DefaultTableModel model = (DefaultTableModel) tablaCocina.getModel();  
-        int row = tablaCocina.getSelectedRow();                  
+//        int row = tablaCocina.getSelectedRow();                  
+        int row =0;                  
         String NoPedido = tablaCocina.getValueAt(row, 0).toString();       
         controlador.eliminarPedidoCocina(NoPedido);
         model.removeRow(row);

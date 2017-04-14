@@ -35,7 +35,7 @@ public class JefeCocina {
                 int cant = controlador.getCantidad(q.getName());                
                 if (cant>=1) {
                     controlador.archivoTemp(q.getName(),q.getType(),cant-1, price); 
-//                    Factura = Factura + q.getName()+".............."+price+"$"+"\n";
+                    p.addPrice((price+""));
                 }else{
                     elim = true;
                     eliminar = q;
@@ -67,7 +67,8 @@ public class JefeCocina {
 //                      System.out.println(token);
                         int cant = controlador.getCantidad(token);
                         int price = controlador.getPrice(token);
-                        controlador.archivoTemp(token,"Ingrediente",cant-1, price);       
+                        controlador.archivoTemp(token,"Ingrediente",cant-1, price);    
+                        p.addPrice((""+price));
                     }
 //                    Factura = Factura + q.getName()+".........."+archivo.getPrice(name)+"$"+"\n";
                 }else{

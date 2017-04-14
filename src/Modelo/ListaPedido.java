@@ -69,7 +69,6 @@ public class ListaPedido {
     public Pedido findPedido(String id) {
         Pedido q = this.ptr;
         while(q.getNroPedido()!=Integer.parseInt(id)){
-
             q=q.getLink();
         }
         return q;
