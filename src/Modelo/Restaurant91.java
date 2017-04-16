@@ -4,6 +4,7 @@ import Vista.PlatoView;
 import Vista.ProductoView;
 import Controlador.Controlador;
 import Vista.CocinaView;
+import Vista.GeneralInfoView;
 import Vista.MenuView;
 import Vista.MesasView;
 import Vista.MeseroView;
@@ -35,6 +36,8 @@ public class Restaurant91 {
         Controlador controlador = new Controlador();        
         GeneralView generalView = new GeneralView();
         MeseroView  meseroView = new MeseroView();
+        GeneralInfoView generalIfoView= new GeneralInfoView();
+        generalIfoView.setControlador(controlador);
         StockView stockView = new StockView();
         MesasView mesasView = new MesasView();
         mesasView.setControlador(controlador);
@@ -46,6 +49,7 @@ public class Restaurant91 {
         ProductoView productoView = new ProductoView();
         Cocina cocinaClass = new Cocina();
         controlador.setRestaurant(restaurant);
+        generalView.setGeneralIfoView(generalIfoView);
         controlador.setMesasViewToGeneralView(mesasView,generalView);
         controlador.setJefeCocinaClass(jefeCocinaClass);
         controlador.setCocinaClassToCocinaView(cocinaClass,cocinaView);
@@ -121,6 +125,39 @@ public class Restaurant91 {
     public String getValorPedido(int NroPedido, String Factura,String ID){
         Factura = mesas.getValorPedido(ID, NroPedido, Factura);
         return Factura;
+    }
+
+    public String getMejorMesero() {
+        Mesero m = this.meseros.ptr;
+        String id="epale";
+        int cont = 0;
+        while(m!=null){
+            System.out.println(m.getTotalVendido());
+            if (m.getTotalVendido()>cont){
+                id = m.getId();           
+                System.out.println("entra");
+                cont = m.getTotalVendido();
+            }
+            m=m.getLink();
+        }
+//        System.out.println("aaa"+id);
+        return id;
+    }
+
+    public String getNumVentas() {
+        Mesero m = this.meseros.ptr;
+        int cont = 0;
+        while(m!=null){    
+                cont = cont + m.numVentas;           
+            m=m.getLink();
+        }
+        
+        return (cont+"");
+    }
+
+    public String getMontoMejorMesero(String id) {
+        Mesero m = this.meseros.findMesero(id);
+        return m.getTotalVendido()+"";
     }
     
 }

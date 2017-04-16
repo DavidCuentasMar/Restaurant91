@@ -38,7 +38,7 @@ public class Archivo {
         System.out.println("Hola");
         try(FileWriter bw = new FileWriter("archivos/productos.txt", true)){         
             BufferedWriter w = new BufferedWriter(bw);                
-                w.write(tipo+","+name+","+precio+","+cantidad);
+                w.write(tipo+","+name+","+precio+","+cantidad+","+0);
                 w.newLine();
             w.close();
             infoTxt.setText("[ Producto Agregado ]");
@@ -62,7 +62,7 @@ public class Archivo {
             ingredientes=ingredientes.substring(0, ingredientes.length()-1);
             try(FileWriter bw = new FileWriter("archivos/platos.txt", true)){         
                 BufferedWriter w = new BufferedWriter(bw);                
-                w.write(name+","+precio+","+ingredientes);
+                w.write(name+","+precio+","+ingredientes+","+0);
                 w.newLine();
                 w.close();
             }catch (IOException ex) {
@@ -211,14 +211,13 @@ public class Archivo {
             BufferedReader b = new BufferedReader(f);            
             while((cadena = b.readLine())!=null) {
                 StringTokenizer st = new StringTokenizer(cadena,",");
-                while(st.hasMoreElements()){
                     String token=st.nextElement().toString();
                     token=st.nextElement().toString();
                     if (name.equals(token)) {
                         token=st.nextElement().toString();
                         token=st.nextElement().toString();
                         return Integer.parseInt(token);                        
-                    }                    
+                                    
                 }
             }
             b.close();
@@ -253,15 +252,12 @@ public class Archivo {
         try(FileReader f = new FileReader("archivos/productos.txt")){
             BufferedReader b = new BufferedReader(f);            
             while((cadena = b.readLine())!=null) {
-                StringTokenizer st = new StringTokenizer(cadena,",");
-                while(st.hasMoreElements()){
-                    String token=st.nextElement().toString();
-                    token=st.nextElement().toString();
-                    if (name.equals(token)) {
-                        token=st.nextElement().toString();
-                        return Integer.parseInt(token);                        
-                    }
-                    
+                StringTokenizer st = new StringTokenizer(cadena,",");             
+                String token=st.nextElement().toString();    
+                token=st.nextElement().toString();
+                if (name.equals(token)) {
+                       token=st.nextElement().toString();
+                       return Integer.parseInt(token);                        
                 }
             }
             b.close();
@@ -284,16 +280,19 @@ public class Archivo {
                     String typeToken = st.nextElement().toString();
                     String nameToken = st.nextElement().toString();
                     String priceToken = st.nextElement().toString();
-                    String cantToken = st.nextElement().toString();                    
+                    String cantToken = st.nextElement().toString();        
+                    System.out.println(cantToken);
+                    String NumVecesToken = st.nextElement().toString();                    
                     if (type.equals(typeToken)) {                        
                         if (nameToken.equals(name)) {
-                            w.write(typeToken+","+nameToken+","+priceToken+","+cant);                       
+                            NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
+                            w.write(typeToken+","+nameToken+","+priceToken+","+cant+","+NumVecesToken);                       
                         }else{                            
-                            w.write(typeToken+","+nameToken+","+priceToken+","+cantToken);                            
+                            w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);                            
                         }
                         w.newLine();
                     }else{
-                        w.write(typeToken+","+nameToken+","+priceToken+","+cantToken);
+                        w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);
                         w.newLine();                    
                     }
                 }
@@ -355,6 +354,71 @@ public class Archivo {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return -15;
+    }
+
+    public void sumVentaPlato(String name) {
+        try(FileWriter bw = new FileWriter("archivos/temp2.txt", true)){         
+            BufferedWriter w = new BufferedWriter(bw);
+            String cadena;
+            try(FileReader f = new FileReader("archivos/platos.txt")){
+                BufferedReader b = new BufferedReader(f);            
+                while((cadena = b.readLine())!=null) {
+//                  System.out.println(cadena);
+                    StringTokenizer st = new StringTokenizer(cadena,",");
+                    String nameToken = st.nextElement().toString();
+                    String priceToken = st.nextElement().toString();
+                    String IngredientesToken = st.nextElement().toString();
+                    String NumVecesToken = st.nextElement().toString();    
+                    if (nameToken.equals(name)) {
+                        NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
+                        w.write(nameToken+","+priceToken+","+IngredientesToken+","+NumVecesToken);                       
+                    }else{                            
+                        w.write(nameToken+","+priceToken+","+IngredientesToken+","+NumVecesToken);                            
+                    }
+                    w.newLine();
+                    
+                }
+                b.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }               
+            w.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        File fichero = new File("archivos/platos.txt");
+        fichero.delete();
+        File fichero2 = new File("archivos/temp2.txt");
+        fichero2.renameTo(fichero); 
+        
+    }
+
+    public String getPlatoMasVendido() {
+        int cont = 0;
+        String mayor="";
+        String cadena;
+        try(FileReader f = new FileReader("archivos/platos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                String name=st.nextElement().toString();   
+                String price=st.nextElement().toString();
+                String ingredientes=st.nextElement().toString(); 
+                String numVecesVendido=st.nextElement().toString();                 
+                if (Integer.parseInt(numVecesVendido)>cont) {
+                    mayor = name;
+                    cont = Integer.parseInt(numVecesVendido);
+                }                                   
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
+        System.out.println("aaa"+mayor);
+        return mayor;
+
     }
 
 }

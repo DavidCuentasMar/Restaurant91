@@ -6,7 +6,20 @@ public class Mesero {
     private Mesero link;
     int numVentas;
     int NumMesas=0;
+    private int totalVendido;
 
+    public int getNumMesas() {
+        return NumMesas;
+    }
+
+    public int getTotalVendido() {
+        return totalVendido;
+    }
+
+    public void sumTotalVendido(int totalVendido) {
+        this.totalVendido = totalVendido+this.totalVendido;
+    }
+    
     public int getNumVentas() {
         return numVentas;
     }
@@ -20,6 +33,7 @@ public class Mesero {
         this.numVentas=0;
         this.mesas = new ListaMesa();
         this.mesa=null;
+        this.totalVendido=0;
     }
     public void addMesa(Mesa m){
         this.mesas.agregarMesa(m,0);

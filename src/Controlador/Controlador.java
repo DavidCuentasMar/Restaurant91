@@ -210,6 +210,26 @@ public class Controlador {
         return Factura;
     }
 
+    public void SumVentaPlato(String name) {
+        archivo.sumVentaPlato(name);
+    }
+
+    public String getPlatoMasVendido() {
+        return archivo.getPlatoMasVendido();
+    }
+
+    public String getMejorMesero() {
+        return restaurant.getMejorMesero();
+    }
+
+    public String getVentas() {
+        return restaurant.getNumVentas();
+    }
+
+    public String getMontoMejorMesero(String id) {
+        return restaurant.getMontoMejorMesero(id);
+    }
+
 
 
 

@@ -66,10 +66,11 @@ public class JefeCocina {
                         String token=st.nextElement().toString();
 //                      System.out.println(token);
                         int cant = controlador.getCantidad(token);
-                        int price = controlador.getPrice(token);
-                        controlador.archivoTemp(token,"Ingrediente",cant-1, price);    
-                        p.addPrice((""+price));
+                        int price = controlador.getPrice(token);                        
+                        controlador.archivoTemp(token,"Ingrediente",cant-1, price);                            
                     }
+                    p.addPrice((controlador.getPricePlato(name))+"");
+                    controlador.SumVentaPlato(name);
 //                    Factura = Factura + q.getName()+".........."+archivo.getPrice(name)+"$"+"\n";
                 }else{
                     System.out.println("El plato " + name + "no tiene los ingredientes completos"+ "[NO COCINADO]");

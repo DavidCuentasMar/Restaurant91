@@ -23,6 +23,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
     private int seg = 0;
     private int min = 0;
     private int hora = 0;
+    private int NumVentas=0;
     private boolean continuar = true;
     private Time i;
     Controlador controlador;
@@ -167,6 +168,12 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
                 controlador.findPedido(NoPedido).setProductos(p.getProductos());            
                 Pedido pd = new Pedido(p.NroPedido,p.Mesa,p.Camarero,p.getProductos(),p.getProductos().getTamano());
                 pd.addPrice(""+p.getValor());
+                Mesero mesero = controlador.findMesero(p.Camarero);
+                System.out.println("pd price: " + p.getValor());
+                mesero.sumTotalVendido(p.getValor());
+                System.out.println("totalvendidomeserococin: " + mesero.getTotalVendido());
+                mesero.addNumVentas(1);
+                this.NumVentas++;
                 controlador.addPedidoToMesa(pd);
                 continuar = true;
                 btnCocinar.setEnabled(false);

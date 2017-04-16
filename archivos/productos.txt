@@ -1,14 +1,3 @@
-Ingrediente,Pan,0,100
-Ingrediente,Arroz,0,80
-Ingrediente,Carne,0,60
-Ingrediente,Pollo,0,89
-Ingrediente,Aguacate,0,88
-Ingrediente,Yuca,0,49
-Ingrediente,Cerdo,0,100
-Ingrediente,Salchica,0,100
-Ingrediente,Papa,0,100
-Bebida,Vodka,85000,100
-Postre,Brownie,3200,50
-Bebida,CocaCola,3250,3
-Postre,Sopa,1000,50
-Ingrediente,Pescado,0,64
+Ingrediente,Arroz,0,72,28
+Ingrediente,Carne,0,72,28
+Ingrediente,Yuca,0,72,28
