@@ -252,7 +252,10 @@ public class MesasView extends javax.swing.JFrame {
         mesero.getMesas().showList();
         mesero.getMesas().eliminarMesa(mesa);
         System.out.println(mesa.getMesero());
+
+        Factura =  "Total a pagar: "+"................"+ "$" +Factura + "\n";
         System.out.println(Factura);
+        JOptionPane.showMessageDialog(null, Factura);
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             

@@ -19,7 +19,7 @@ public class ProductoView extends javax.swing.JFrame {
     public ProductoView() {
         initComponents();
         controlador = new Controlador();
-        this.setLocation(1050,100);
+        this.setLocation(900,380);
     }
 
     /**

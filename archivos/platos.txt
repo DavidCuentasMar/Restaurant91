@@ -1,5 +1,5 @@
-Corriente de Carne,7500,Arroz/Carne/Yuca,28
-Corriente de Pollo,7500,Arroz/Pollo/Yuca,0
+Corriente de Carne,7500,Arroz/Carne/Yuca,38
+Corriente de Pollo,7500,Arroz/Pollo/Yuca,2
 Pescado,12000,Pescado,0
 Epale,15000,Aguacate/Pescado/Vodka,0
 Arroz con Pollo,7520,Arroz/Yuca/Pollo,0

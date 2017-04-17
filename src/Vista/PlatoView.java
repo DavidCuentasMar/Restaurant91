@@ -26,7 +26,7 @@ public class PlatoView extends javax.swing.JFrame {
     public PlatoView() {
         initComponents();
         controlador = new Controlador();
-        this.setLocation(1050,480);
+        this.setLocation(900,40);
     }
 
     public JPanel getPanelBotones() {
