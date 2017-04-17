@@ -74,7 +74,7 @@ public class Restaurant91 {
             Mesa mesa = new Mesa((i+1)+"");
             restaurant.getMesas().agregarMesa(mesa);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             Mesero mesero = new Mesero((i+1)+"");
             restaurant.getMeseros().agregarMesero(mesero);
         }

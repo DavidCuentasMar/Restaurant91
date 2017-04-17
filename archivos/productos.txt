@@ -1,3 +1,6 @@
-Ingrediente,Arroz,0,72,28
-Ingrediente,Carne,0,72,28
-Ingrediente,Yuca,0,72,28
+Ingrediente,Arroz,0,71,29
+Ingrediente,Carne,0,71,29
+Ingrediente,Yuca,0,71,29
+Bebida,Agua,5000,20,0
+Ingrediente,Pollo,0,204,1
+Postre,Brownie,3520,5,0

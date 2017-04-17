@@ -66,6 +66,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         TextSeg = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,7 +93,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 150, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 150, -1));
 
         btnCocinar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnCocinar.setText("Cocinar");
@@ -101,7 +102,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
                 btnCocinarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCocinar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 150, -1));
+        getContentPane().add(btnCocinar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 150, -1));
 
         jButton3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton3.setText("Salir");
@@ -119,13 +120,16 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 150, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 150, -1));
 
         TextSeg.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         TextSeg.setForeground(new java.awt.Color(255, 255, 255));
         TextSeg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TextSeg.setText("0");
         getContentPane().add(TextSeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 90, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinner.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 70, 60));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Kitchen.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 320));
@@ -236,6 +240,7 @@ public class CocinaView extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCocina;
