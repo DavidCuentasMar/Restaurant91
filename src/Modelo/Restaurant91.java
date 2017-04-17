@@ -32,6 +32,10 @@ public class Restaurant91 {
     }
     
     public static void main(String[] args) { 
+//        try {
+//            Thread.sleep(3000);
+//        } catch (Exception e) {
+//        }
         Restaurant91 restaurant = new Restaurant91();
         Controlador controlador = new Controlador();        
         GeneralView generalView = new GeneralView();

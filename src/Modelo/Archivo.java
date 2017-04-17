@@ -98,7 +98,7 @@ public class Archivo {
 
     }
 
-    public void generarMenuMesero(JTable tablaPedido, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel) {
+    public void generarMenuMesero(final JTable tablaPedido, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel) {
         platosPanel.removeAll();        bebidasPanel.removeAll();        postresPanel.removeAll();
         String cadena;
         try(FileReader f = new FileReader("archivos/productos.txt")){

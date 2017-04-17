@@ -30,7 +30,7 @@ public class MenuView extends javax.swing.JFrame {
      */
     public MenuView() {
         initComponents();
-        this.setLocation(885,160);
+        this.setLocation(955,160);
     }
 
     /**
