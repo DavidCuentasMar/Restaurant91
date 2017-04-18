@@ -122,14 +122,6 @@ public class Restaurant91 {
         Mesa mesa = this.getMesas().findMesa(pd.getMesa());
         mesa.getPedidos().agregarPedido(pd);
     }
-    public String getFactura(int NroPedido, String Factura,String ID){
-        Factura = mesas.Factura(Factura, NroPedido,ID);
-        return Factura;
-    }
-    public String getValorPedido(int NroPedido, String Factura,String ID){
-        Factura = mesas.getValorPedido(ID, NroPedido, Factura);
-        return Factura;
-    }
 
     public String getMejorMesero() {
         Mesero m = this.meseros.ptr;

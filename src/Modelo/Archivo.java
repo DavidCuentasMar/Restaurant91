@@ -282,20 +282,26 @@ public class Archivo {
                     String cantToken = st.nextElement().toString();        
                     System.out.println(cantToken);
                     String NumVecesToken = st.nextElement().toString();                    
-                    if (type.equals(typeToken)) {                        
-                        if (nameToken.equals(name)) {
-                            if (num!=0) {
-                                NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
-                            }                            
-                            w.write(typeToken+","+nameToken+","+priceToken+","+cant+","+NumVecesToken);                       
-                        }else{                            
-                            w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);                            
+                    if (num!=-666) {
+                        if (type.equals(typeToken)) {                        
+                            if (nameToken.equals(name)) {
+                                if (num!=0) {
+                                    NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
+                                }                            
+                                w.write(typeToken+","+nameToken+","+priceToken+","+cant+","+NumVecesToken);                       
+                            }else{                            
+                                w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);                            
+                            }
+                            w.newLine();
+                        }else{
+                            w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);
+                            w.newLine();                    
                         }
-                        w.newLine();
                     }else{
-                        w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);
-                        w.newLine();                    
+                            w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+0);
+                            w.newLine();
                     }
+                        
                 }
                 b.close();
             } catch (IOException ex) {
@@ -357,7 +363,7 @@ public class Archivo {
         return -15;
     }
 
-    public void sumVentaPlato(String name) {
+    public void sumVentaPlato(String name, int num) {
         try(FileWriter bw = new FileWriter("archivos/temp2.txt", true)){         
             BufferedWriter w = new BufferedWriter(bw);
             String cadena;
@@ -370,13 +376,19 @@ public class Archivo {
                     String priceToken = st.nextElement().toString();
                     String IngredientesToken = st.nextElement().toString();
                     String NumVecesToken = st.nextElement().toString();    
-                    if (nameToken.equals(name)) {
-                        NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
-                        w.write(nameToken+","+priceToken+","+IngredientesToken+","+NumVecesToken);                       
-                    }else{                            
-                        w.write(nameToken+","+priceToken+","+IngredientesToken+","+NumVecesToken);                            
+                    if (num!=0) {
+                        if (nameToken.equals(name)) {
+                            NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";                                                
+                            w.write(nameToken+","+priceToken+","+IngredientesToken+","+NumVecesToken);                       
+                        }else{                            
+                            w.write(nameToken+","+priceToken+","+IngredientesToken+","+NumVecesToken);                            
+                        }
+                        w.newLine();
+                    }else{
+                        w.write(nameToken+","+priceToken+","+IngredientesToken+","+0);
+                        w.newLine();
                     }
-                    w.newLine();
+                    
                     
                 }
                 b.close();
@@ -435,6 +447,11 @@ public class Archivo {
         }
         
         return factura;
+    }
+
+    public void gg() {
+        sumVentaPlato("GG",0);
+        archivoTemp("","",0,0,-666);
     }
 
 }

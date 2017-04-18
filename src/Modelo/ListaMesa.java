@@ -111,75 +111,8 @@ public class ListaMesa {
         }
         return q;
     }
-
-    public String Factura(String Fact, int NroPedido, String ID) {
-        Fact = "Factura" + "\n";
-        Fact = Fact + "\n";
-        System.out.println("list");
-        Mesa mesa = this.ptr;
-        boolean ST = true;
-        int Total = 0;
-        while (mesa != null && ST == true) {
-            if (mesa.getId().equals(ID)) {
-                ListaPedido G = mesa.getPedidos();
-                Pedido p = G.getPtr();
-                boolean SW = true;
-                while (p != null && SW == true) {
-                    if (p.NroPedido == NroPedido) {
-                        ListaProducto M = p.getProductos();
-                        Producto F = M.getPtr();
-                        while (F != null) {
-                            if (F.getType().equals("Postre") || F.getType().equals("Bebida")) {
-                                int Price = getPrice(F.getName());
-                                Fact = Fact + F.getName() + "..............." + Price + " $" + "\n";
-                                Total = Total + Price;
-                            } else {
-                                int Price = gerPricePlato(F.getName());
-                                Fact = Fact + F.getName() + "..............." + Price + " $" + "\n";
-                                Total = Total + Price;
-                            }
-
-                            F = F.getLink();
-                        }
-                        SW = false;
-                    }
-                    p = p.getLink();
-                }
-                ST = false;
-            }
-            mesa = mesa.getLink();
-        }
-        Fact = Fact + "Total" + "..............." + Total + "$" + "\n";
-        Fact = Fact + "IVA 5%" + "............" + (Total * 0.05) + "$" + "\n";
-        Fact = Fact + "Propina 10%" + "........." + (Total * 0.1) + "$" + "\n";
-        Fact = Fact + "Total a Pagar" + "............" + (Total + (Total * 0.05 + Total * 0.1)) + "$" + "\n";
-        Fact = Fact + ".................................................";
-        return Fact;
-    }
     
-    public String getValorPedido(String ID,int NroPedido,String Factura){
-        Mesa m = this.ptr;
-        boolean SW = true;
-        while(m != null && SW == true){
-            if (m.getId().equals(ID)) {
-                ListaPedido G = m.getPedidos();
-                Pedido P = G.ptr;
-                boolean ST = true;
-                while(P != null && ST == true){
-                    if (P.NroPedido == NroPedido) {
-                        System.out.println("entra");
-                        System.out.println(P.getValor());
-                        Factura = P.getValor()+"";
-                        ST = false;
-                    }
-                    P = P.getLink();
-                }
-                SW =false;
-            }
-            m = m.getLink();
-        }
-        return Factura;
-    }
+
     
     public int gerPricePlato(String name) {
         String cadena;

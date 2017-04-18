@@ -226,13 +226,25 @@ public class MesasView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
         if (model.getRowCount() != 0) {
             int row = tablaMesas.getSelectedRow();
-            int NroPedido = Integer.parseInt(tablaMesas.getValueAt(row, 0).toString());
+            int NroPedido = Integer.parseInt(tablaMesas.getValueAt(row, 0).toString());            
             String ID = mesaID.getSelectedItem().toString();
+            Mesa mesa = controlador.findMesa(ID);
+            Pedido p = mesa.getPedidos().findPedido(NroPedido+"");            
             String Factura = "";
-            Factura = controlador.getFactura(NroPedido, Factura, ID);
+            Factura = controlador.getFacturaT(p);
+            int PrecioBase = p.getValor();
+            int iva = (int) Math.round(PrecioBase*0.05);
+            int propina = (int) Math.round(PrecioBase*0.1);
+            int total = PrecioBase+iva+propina;
+            Factura = "Productos: \n" + Factura + "\nPrecio Base: " + "................" + "$" + PrecioBase + "\n";
+            Factura = Factura + "IVA 5%" + "............ $" + iva + "\n";
+            Factura = Factura + "Propina 10%" + "......... $" + propina + "$" + "\n";
+            Factura = Factura + "Total a Pagar: " + "............ $" + total + "\n";
+            Factura = Factura + ".................................................";
+            
             JOptionPane.showMessageDialog(null, Factura);
             model.removeRow(tablaMesas.getSelectedRow());
-            Mesa mesa = controlador.findMesa(ID);
+            
             mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido + ""));
         }
 
@@ -246,28 +258,33 @@ public class MesasView extends javax.swing.JFrame {
             String Factura = "";
             Mesa mesa = controlador.findMesa(ID);
             String pedidos = "";
-            int cont = 0;
+            int PrecioBase = 0;
+            int iva = 0;
+            int propina = 0;
+            int total=0;
             Mesero mesero = controlador.findMesero(tablaMesas.getValueAt(0, 1).toString());
             for (int i = 0; i < tablaMesas.getRowCount(); i++) {
                 int NroPedido = Integer.parseInt(tablaMesas.getValueAt(i, 0).toString());
                 Pedido p = mesa.getPedidos().findPedido(NroPedido + "");
                 pedidos = pedidos + controlador.getFacturaT(p) + "\n";
-                Factura = Factura + controlador.getValorPedido(NroPedido, Factura, ID);
-                cont = cont + Integer.parseInt(Factura);
+                PrecioBase = PrecioBase + p.getValor();
                 mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido + ""));
             }
-
+            System.out.println("aa"+PrecioBase);
+            iva = (int) Math.round(PrecioBase*0.05);
+            propina = (int) Math.round(PrecioBase*0.1);
+            total = PrecioBase+iva+propina;
+            
             mesa.setMesero(null);
             mesero.getMesas().showList();
             mesero.getMesas().eliminarMesa(mesa);
             System.out.println(mesa.getMesero());
 
-            Factura = "Productos: \n" + pedidos + "Precio Base: " + "................" + "$" + cont + "\n";
-            Factura = Factura + "IVA 5%" + "............" + (cont * 0.05) + "$" + "\n";
-            Factura = Factura + "Propina 10%" + "........." + (cont * 0.1) + "$" + "\n";
-            Factura = Factura + "Total a Pagar" + "............" + (cont + (cont * 0.05 + cont * 0.1)) + "$" + "\n";
+            Factura = "Productos: \n" + pedidos + "Precio Base: " + "................" + "$" + PrecioBase + "\n";
+            Factura = Factura + "IVA 5%" + "............ $" + iva + "\n";
+            Factura = Factura + "Propina 10%" + "......... $" + propina + "$" + "\n";
+            Factura = Factura + "Total a Pagar: " + "............ $" + total + "\n";
             Factura = Factura + ".................................................";
-            System.out.println("a" + Factura + "a");
             JOptionPane.showMessageDialog(null, Factura);
             for (int i = 0; i < model.getRowCount(); i++) {
 

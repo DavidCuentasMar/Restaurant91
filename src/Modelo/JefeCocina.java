@@ -70,7 +70,7 @@ public class JefeCocina {
                         controlador.archivoTemp(token,"Ingrediente",cant-1, price,1);                            
                     }
                     p.addPrice((controlador.getPricePlato(name))+"");
-                    controlador.SumVentaPlato(name);
+                    controlador.SumVentaPlato(name,5);
 //                    Factura = Factura + q.getName()+".........."+archivo.getPrice(name)+"$"+"\n";
                 }else{
                     System.out.println("El plato " + name + "no tiene los ingredientes completos"+ "[NO COCINADO]");
