@@ -1,2 +1,5 @@
-Ingrediente,Arroz,0,66,0
-Ingrediente,Pollo,0,66,0
+Ingrediente,Arroz,0,63,0
+Ingrediente,Pollo,0,63,0
+Postre,Sopa,1000,11,0
+Postre,Brownie,3500,202,0
+Ingrediente,Yuca,0,798,0
