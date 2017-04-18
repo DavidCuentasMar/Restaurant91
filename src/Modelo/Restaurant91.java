@@ -32,6 +32,10 @@ public class Restaurant91 {
     }
     
     public static void main(String[] args) { 
+//        try {
+//            Thread.sleep(3000);
+//        } catch (Exception e) {
+//        }
         Restaurant91 restaurant = new Restaurant91();
         Controlador controlador = new Controlador();        
         GeneralView generalView = new GeneralView();
@@ -70,7 +74,7 @@ public class Restaurant91 {
             Mesa mesa = new Mesa((i+1)+"");
             restaurant.getMesas().agregarMesa(mesa);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             Mesero mesero = new Mesero((i+1)+"");
             restaurant.getMeseros().agregarMesero(mesero);
         }
