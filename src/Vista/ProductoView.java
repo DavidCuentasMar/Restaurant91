@@ -221,7 +221,7 @@ public class ProductoView extends javax.swing.JFrame {
         if(controlador.comprobarExistencia(name,type)!=-15){
             int cant = controlador.getCantidad(name);
             cant = Integer.parseInt(cantidad)+cant;
-            controlador.archivoTemp(name, type, cant, Integer.parseInt(precioTxt.getText()));
+            controlador.archivoTemp(name, type, cant, Integer.parseInt(precioTxt.getText()),0);
         
         }else{
         controlador.nuevoProducto(type,name,precioTxt.getText(),cantidad,infoTxt);

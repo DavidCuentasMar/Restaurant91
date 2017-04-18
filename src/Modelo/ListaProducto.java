@@ -1,12 +1,14 @@
 package Modelo;
 
+import Controlador.Controlador;
+
 public class ListaProducto {
         private Producto ptr=null;
         private Producto ultimo=null;
         int tamano;
         
     public ListaProducto() {
-        this.ptr = null;
+        Controlador controlador = new Controlador();
     }
 
     public int getTamano() {

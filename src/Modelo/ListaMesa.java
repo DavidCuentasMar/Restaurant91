@@ -116,12 +116,12 @@ public class ListaMesa {
         Fact = "Factura" + "\n";
         Fact = Fact + "\n";
         System.out.println("list");
-        Mesa L = this.ptr;
+        Mesa mesa = this.ptr;
         boolean ST = true;
         int Total = 0;
-        while (L != null && ST == true) {
-            if (L.getId().equals(ID)) {
-                ListaPedido G = L.getPedidos();
+        while (mesa != null && ST == true) {
+            if (mesa.getId().equals(ID)) {
+                ListaPedido G = mesa.getPedidos();
                 Pedido p = G.getPtr();
                 boolean SW = true;
                 while (p != null && SW == true) {
@@ -147,7 +147,7 @@ public class ListaMesa {
                 }
                 ST = false;
             }
-            L = L.getLink();
+            mesa = mesa.getLink();
         }
         Fact = Fact + "Total" + "..............." + Total + "$" + "\n";
         Fact = Fact + "IVA 5%" + "............" + (Total * 0.05) + "$" + "\n";
@@ -204,23 +204,22 @@ public class ListaMesa {
 
     public int getPrice(String name) {
         String cadena;
-        try (FileReader f = new FileReader("archivos/productos.txt")) {
-            BufferedReader b = new BufferedReader(f);
-            while ((cadena = b.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(cadena, ",");
-                while (st.hasMoreElements()) {
-                    String token = st.nextElement().toString();
-                    token = st.nextElement().toString();
-                    if (name.equals(token)) {
-                        token = st.nextElement().toString();
-                        return Integer.parseInt(token);
-                    }
+        try(FileReader f = new FileReader("archivos/productos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");             
+                String token=st.nextElement().toString();    
+                token=st.nextElement().toString();
+                if (name.equals(token)) {
+                       token=st.nextElement().toString();
+                       return Integer.parseInt(token);                        
                 }
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return -666;
     }
 

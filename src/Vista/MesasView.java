@@ -211,15 +211,13 @@ public class MesasView extends javax.swing.JFrame {
             System.out.println(tablaMesas.getValueAt(row, 0).toString());  
             Mesa m = controlador.findMesa(mesaID.getSelectedItem().toString());
             Pedido p = m.getPedidos().findPedido(tablaMesas.getValueAt(row, 0).toString());
-            p.showPedidoList();
-//            Pedido p = controlador.findPedido(tablaMesas.getValueAt(row, 0).toString());            
-    //      p.showPedidoList();
+            p.showPedidoList();          
             String productosTxt = p.getProductosTxt();
-//                JOptionPane.showMessageDialog(this,
-//                    "No.Pedido: " + tablaMesas.getValueAt(row, 0).toString()
-//                    +"\nNo.Mesero:" + p.getCamarero()
-//                    + "\nNo.Mesa: " + tablaMesas.getValueAt(row, 1).toString()
-//                    + "\n----------\n" + productosTxt);            
+                JOptionPane.showMessageDialog(this,
+                    "No.Pedido: " + tablaMesas.getValueAt(row, 0).toString()
+                    +"\nNo.Mesero:" + p.getCamarero()
+                    + "\nNo.Mesa: " + tablaMesas.getValueAt(row, 1).toString()
+                    + "\n----------\n" + productosTxt);            
         }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -230,11 +228,10 @@ public class MesasView extends javax.swing.JFrame {
         String Factura = "";
         Factura = controlador.getFactura(NroPedido, Factura,ID);
         JOptionPane.showMessageDialog(null, Factura);
-//        DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
-//        for (int i = 0; i < tablaMesas.getRowCount(); i++) {
-//            model.removeRow(i);
-//            i -= 1;
-//        }
+        DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
+        model.removeRow(tablaMesas.getSelectedRow());
+        Mesa mesa = controlador.findMesa(ID);
+        mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido+""));
 //        tablaMesas.setModel(model);
     }//GEN-LAST:event_Btn_FactActionPerformed
 
@@ -242,19 +239,29 @@ public class MesasView extends javax.swing.JFrame {
         String ID = mesaID.getSelectedItem().toString();
         String Factura = "";
         Mesa mesa =  controlador.findMesa(ID);
+        String pedidos="";
+        int cont = 0;
         Mesero mesero = controlador.findMesero(tablaMesas.getValueAt(0, 1).toString());
         for (int i = 0; i < tablaMesas.getRowCount(); i++) {
             int NroPedido = Integer.parseInt(tablaMesas.getValueAt(i, 0).toString());
-            Factura = Factura + controlador.getValorPedido(NroPedido, Factura, ID) + "\n";
+            Pedido p = mesa.getPedidos().findPedido(NroPedido+"");
+            pedidos = pedidos+controlador.getFacturaT(p)+"\n";
+            Factura = Factura + controlador.getValorPedido(NroPedido, Factura, ID);
+          cont = cont + Integer.parseInt(Factura);
             mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido+""));               
         }
+        
         mesa.setMesero(null);
         mesero.getMesas().showList();
         mesero.getMesas().eliminarMesa(mesa);
         System.out.println(mesa.getMesero());
 
-        Factura =  "Total a pagar: "+"................"+ "$" +Factura + "\n";
-        System.out.println(Factura);
+        Factura =  "Productos: \n" + pedidos+ "Precio Base: "+"................"+ "$" +cont + "\n";
+        Factura = Factura + "IVA 5%" + "............" + (cont * 0.05) + "$" + "\n";
+        Factura = Factura + "Propina 10%" + "........." + (cont * 0.1) + "$" + "\n";
+        Factura = Factura + "Total a Pagar" + "............" + (cont + (cont * 0.05 + cont * 0.1)) + "$" + "\n";
+        Factura = Factura + ".................................................";
+        System.out.println("a"+Factura+"a"); 
         JOptionPane.showMessageDialog(null, Factura);
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {

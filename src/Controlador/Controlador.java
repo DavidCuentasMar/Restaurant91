@@ -160,8 +160,8 @@ public class Controlador {
         return archivo.comprobarExistencia(name,type);
     }
 
-    public void archivoTemp(String name, String type, int i, int price) {
-        archivo.archivoTemp(name,type,i,price);
+    public void archivoTemp(String name, String type, int i, int price, int num) {
+        archivo.archivoTemp(name,type,i,price, num);
     }
 
     public String getPlatoIngredientes(String name) {
@@ -228,6 +228,10 @@ public class Controlador {
 
     public String getMontoMejorMesero(String id) {
         return restaurant.getMontoMejorMesero(id);
+    }
+
+    public String getFacturaT(Pedido p) {
+        return archivo.getFacturaT(p);
     }
 
 

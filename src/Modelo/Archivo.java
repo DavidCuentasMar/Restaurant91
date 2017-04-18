@@ -35,7 +35,6 @@ public class Archivo {
     }
     
     public void nuevoProducto(String tipo, String name, String precio, String cantidad,JLabel infoTxt) {
-        System.out.println("Hola");
         try(FileWriter bw = new FileWriter("archivos/productos.txt", true)){         
             BufferedWriter w = new BufferedWriter(bw);                
                 w.write(tipo+","+name+","+precio+","+cantidad+","+0);
@@ -43,7 +42,7 @@ public class Archivo {
             w.close();
             infoTxt.setText("[ Producto Agregado ]");
         }catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -66,7 +65,7 @@ public class Archivo {
                 w.newLine();
                 w.close();
             }catch (IOException ex) {
-                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -93,7 +92,7 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
     }
@@ -200,7 +199,7 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return -15;
     }
@@ -222,7 +221,7 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return -15;
     }
@@ -242,7 +241,7 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return -666;
     }
@@ -262,13 +261,13 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return -666;
     }
 
-    public void archivoTemp(String name, String type, int cant, int price) {
+    public void archivoTemp(String name, String type, int cant, int price, int num) {
         try(FileWriter bw = new FileWriter("archivos/temp.txt", true)){         
             BufferedWriter w = new BufferedWriter(bw);
             String cadena;
@@ -285,7 +284,9 @@ public class Archivo {
                     String NumVecesToken = st.nextElement().toString();                    
                     if (type.equals(typeToken)) {                        
                         if (nameToken.equals(name)) {
-                            NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
+                            if (num!=0) {
+                                NumVecesToken = (Integer.parseInt(NumVecesToken)+1)+"";
+                            }                            
                             w.write(typeToken+","+nameToken+","+priceToken+","+cant+","+NumVecesToken);                       
                         }else{                            
                             w.write(typeToken+","+nameToken+","+priceToken+","+cantToken+","+NumVecesToken);                            
@@ -298,11 +299,11 @@ public class Archivo {
                 }
                 b.close();
             } catch (IOException ex) {
-                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
             }               
             w.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         File fichero = new File("archivos/productos.txt");
@@ -329,7 +330,7 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return "[PLATO NO ENCONTRADO]";
@@ -351,7 +352,7 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return -15;
     }
@@ -380,11 +381,11 @@ public class Archivo {
                 }
                 b.close();
             } catch (IOException ex) {
-                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
             }               
             w.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         File fichero = new File("archivos/platos.txt");
@@ -413,12 +414,27 @@ public class Archivo {
             }
             b.close();
         } catch (IOException ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }        
         
         System.out.println("aaa"+mayor);
         return mayor;
 
+    }
+
+    public String getFacturaT(Pedido p) {
+        String factura="";
+        Producto a = p.getProductos().getPtr();
+        while(a!=null){
+            if (a.getType()=="Postre" || a.getType()=="Bebida") {
+                factura = factura + a.getName() +".... $"+getPrice(a.getName())+"\n";
+            }else{
+                factura = factura + a.getName() +".....$"+getPricePlato(a.getName())+"\n";
+            }
+        a=a.getLink();
+        }
+        
+        return factura;
     }
 
 }
