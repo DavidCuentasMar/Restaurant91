@@ -18,18 +18,19 @@ import javax.swing.table.DefaultTableModel;
  * @author sony
  */
 public class MesasView extends javax.swing.JFrame {
+
     Controlador controlador;
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
     }
-    
+
     /**
      * Creates new form MesasView
      */
     public MesasView() {
         initComponents();
-        this.setLocation(100,400);
+        this.setLocation(100, 400);
     }
 
     /**
@@ -190,15 +191,15 @@ public class MesasView extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
-            for (int i = 0; i < model.getRowCount(); i++) {
-                model.removeRow(i);
-                i=-1;
-            }
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+            i = -1;
+        }
         Mesa mesa = controlador.findMesa(mesaID.getSelectedItem().toString());
         System.out.println("!!!!");
         mesa.getPedidos().showList();
         System.out.println("!!!");
-        controlador.actualizarTablaMesasView(tablaMesas,mesa,mesaID.getSelectedItem().toString());
+        controlador.actualizarTablaMesasView(tablaMesas, mesa, mesaID.getSelectedItem().toString());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -206,70 +207,76 @@ public class MesasView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (tablaMesas.getSelectedRow()!=-1) {
+        if (tablaMesas.getSelectedRow() != -1) {
             int row = tablaMesas.getSelectedRow();
-            System.out.println(tablaMesas.getValueAt(row, 0).toString());  
+            System.out.println(tablaMesas.getValueAt(row, 0).toString());
             Mesa m = controlador.findMesa(mesaID.getSelectedItem().toString());
             Pedido p = m.getPedidos().findPedido(tablaMesas.getValueAt(row, 0).toString());
-            p.showPedidoList();          
+            p.showPedidoList();
             String productosTxt = p.getProductosTxt();
-                JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(this,
                     "No.Pedido: " + tablaMesas.getValueAt(row, 0).toString()
-                    +"\nNo.Mesero:" + p.getCamarero()
+                    + "\nNo.Mesero:" + p.getCamarero()
                     + "\nNo.Mesa: " + tablaMesas.getValueAt(row, 1).toString()
-                    + "\n----------\n" + productosTxt);            
-        }   
+                    + "\n----------\n" + productosTxt);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Btn_FactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_FactActionPerformed
-        int row = tablaMesas.getSelectedRow();
-        int NroPedido = Integer.parseInt(tablaMesas.getValueAt(row, 0).toString());
-        String ID = mesaID.getSelectedItem().toString();
-        String Factura = "";
-        Factura = controlador.getFactura(NroPedido, Factura,ID);
-        JOptionPane.showMessageDialog(null, Factura);
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
-        model.removeRow(tablaMesas.getSelectedRow());
-        Mesa mesa = controlador.findMesa(ID);
-        mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido+""));
+        if (model.getRowCount() != 0) {
+            int row = tablaMesas.getSelectedRow();
+            int NroPedido = Integer.parseInt(tablaMesas.getValueAt(row, 0).toString());
+            String ID = mesaID.getSelectedItem().toString();
+            String Factura = "";
+            Factura = controlador.getFactura(NroPedido, Factura, ID);
+            JOptionPane.showMessageDialog(null, Factura);
+            model.removeRow(tablaMesas.getSelectedRow());
+            Mesa mesa = controlador.findMesa(ID);
+            mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido + ""));
+        }
+
 //        tablaMesas.setModel(model);
     }//GEN-LAST:event_Btn_FactActionPerformed
 
     private void Btn_FacturaMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_FacturaMesaActionPerformed
-        String ID = mesaID.getSelectedItem().toString();
-        String Factura = "";
-        Mesa mesa =  controlador.findMesa(ID);
-        String pedidos="";
-        int cont = 0;
-        Mesero mesero = controlador.findMesero(tablaMesas.getValueAt(0, 1).toString());
-        for (int i = 0; i < tablaMesas.getRowCount(); i++) {
-            int NroPedido = Integer.parseInt(tablaMesas.getValueAt(i, 0).toString());
-            Pedido p = mesa.getPedidos().findPedido(NroPedido+"");
-            pedidos = pedidos+controlador.getFacturaT(p)+"\n";
-            Factura = Factura + controlador.getValorPedido(NroPedido, Factura, ID);
-          cont = cont + Integer.parseInt(Factura);
-            mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido+""));               
-        }
-        
-        mesa.setMesero(null);
-        mesero.getMesas().showList();
-        mesero.getMesas().eliminarMesa(mesa);
-        System.out.println(mesa.getMesero());
-
-        Factura =  "Productos: \n" + pedidos+ "Precio Base: "+"................"+ "$" +cont + "\n";
-        Factura = Factura + "IVA 5%" + "............" + (cont * 0.05) + "$" + "\n";
-        Factura = Factura + "Propina 10%" + "........." + (cont * 0.1) + "$" + "\n";
-        Factura = Factura + "Total a Pagar" + "............" + (cont + (cont * 0.05 + cont * 0.1)) + "$" + "\n";
-        Factura = Factura + ".................................................";
-        System.out.println("a"+Factura+"a"); 
-        JOptionPane.showMessageDialog(null, Factura);
         DefaultTableModel model = (DefaultTableModel) tablaMesas.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            
-            model.removeRow(i);
-            i=-1;
+        if (model.getRowCount() != 0) {
+            String ID = mesaID.getSelectedItem().toString();
+            String Factura = "";
+            Mesa mesa = controlador.findMesa(ID);
+            String pedidos = "";
+            int cont = 0;
+            Mesero mesero = controlador.findMesero(tablaMesas.getValueAt(0, 1).toString());
+            for (int i = 0; i < tablaMesas.getRowCount(); i++) {
+                int NroPedido = Integer.parseInt(tablaMesas.getValueAt(i, 0).toString());
+                Pedido p = mesa.getPedidos().findPedido(NroPedido + "");
+                pedidos = pedidos + controlador.getFacturaT(p) + "\n";
+                Factura = Factura + controlador.getValorPedido(NroPedido, Factura, ID);
+                cont = cont + Integer.parseInt(Factura);
+                mesa.getPedidos().eliminarPedido(mesa.getPedidos().findPedido(NroPedido + ""));
+            }
+
+            mesa.setMesero(null);
+            mesero.getMesas().showList();
+            mesero.getMesas().eliminarMesa(mesa);
+            System.out.println(mesa.getMesero());
+
+            Factura = "Productos: \n" + pedidos + "Precio Base: " + "................" + "$" + cont + "\n";
+            Factura = Factura + "IVA 5%" + "............" + (cont * 0.05) + "$" + "\n";
+            Factura = Factura + "Propina 10%" + "........." + (cont * 0.1) + "$" + "\n";
+            Factura = Factura + "Total a Pagar" + "............" + (cont + (cont * 0.05 + cont * 0.1)) + "$" + "\n";
+            Factura = Factura + ".................................................";
+            System.out.println("a" + Factura + "a");
+            JOptionPane.showMessageDialog(null, Factura);
+            for (int i = 0; i < model.getRowCount(); i++) {
+
+                model.removeRow(i);
+                i = -1;
+            }
         }
-        
+
+
     }//GEN-LAST:event_Btn_FacturaMesaActionPerformed
 
     private void mesaIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesaIDActionPerformed

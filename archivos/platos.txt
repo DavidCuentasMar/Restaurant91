@@ -1,1 +1,1 @@
-Arroz con pollo,7500,Arroz/Pollo,0
+Arroz con pollo,7500,Arroz/Pollo,10
