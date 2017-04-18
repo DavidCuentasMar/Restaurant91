@@ -1,2 +1,2 @@
-Ingrediente,Arroz,0,100,0
-Ingrediente,Pollo,0,100,0
+Ingrediente,Arroz,0,90,10
+Ingrediente,Pollo,0,90,10
