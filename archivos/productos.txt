@@ -1,0 +1,2 @@
+Ingrediente,Arroz,0,100,0
+Ingrediente,Pollo,0,100,0
